@@ -13,15 +13,14 @@ I hope it helps you make that rad bot you've been meaning to tinker with.
 ## How to Run the RPC Daemon
 By default, the daemon listens on `0.0.0.0:58558`. This can be customized by setting the `MATRIX_BIND_ADDRESS` environment variable.
 ### VM / Metal
-1. *(Optional)* Install preferred NodeJS version. (11.6.0)
+1. *(Optional)* Install preferred NodeJS version. (12.19.0)
     > `$ nvm use`
-2. Install yarn: https://yarnpkg.com/
-3. Install dependencies.
-    > `$ yarn install`
-4. Build and run the daemon.
-    > `$ yarn build`
+2. Install dependencies.
+    > `$ npm i`
+3. Build and run the daemon.
+    > `$ npm run build`
     
-    > `$ yarn start`
+    > `$ npm run start`
 ### Docker
 Pre-built image from DockerHub: https://hub.docker.com/r/zhaytee/matrix-rpc-js
 

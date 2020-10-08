@@ -108,30 +108,79 @@ namespace MatrixRpcJsExample
                     case "exit":
                     case "disconnect":
                     case "bye":
-                        client.Close();
-                        servingClient = false;
-                        break;
+                        {
+                            client.Close();
+                            servingClient = false;
+                            break;
+                        }
 
                     case "shutdown":
                     case "kill":
-                        bot.ForceStop();
-                        client.Close();
-                        servingClient = false;
-                        listener.Stop();
-                        break;
+                        {
+                            bot.ForceStop();
+                            client.Close();
+                            servingClient = false;
+                            listener.Stop();
+                            break;
+                        }
 
                     case "say":
-                        if (toks.Length < 3)
-                            break;
+                        {
+                            if (toks.Length < 3)
+                                break;
 
-                        string to = toks[1];
-                        string something = String.Join(" ", toks.Skip(2).Take(toks.Length-2).ToArray());
-                        bot.Say(something, to);
-                        break;
+                            string to = toks[1];
+                            string something = String.Join(" ", toks.Skip(2).Take(toks.Length - 2).ToArray());
+                            try
+                            {
+                                bot.Say(something, to);
+                            }
+                            catch (Exception ex)
+                            {
+                                writer.WriteLine(ex.Message);
+                            }
+                            break;
+                        }
+
+                    case "join":
+                        {
+                            if (toks.Length < 2)
+                                break;
+
+                            string roomId = toks[1];
+                            try
+                            {
+                                bot.Join(roomId);
+                            }
+                            catch (Exception ex)
+                            {
+                                writer.WriteLine(ex.Message);
+                            }
+                            break;
+                        }
+
+                    case "leave":
+                        {
+                            if (toks.Length < 2)
+                                break;
+
+                            string roomId = toks[1];
+                            try
+                            {
+                                bot.Leave(roomId);
+                            }
+                            catch (Exception ex)
+                            {
+                                writer.WriteLine(ex.Message);
+                            }
+                            break;
+                        }
 
                     default:
-                        Console.WriteLine($"Unknown command: '{toks[0]}'");
-                        break;
+                        {
+                            writer.WriteLine($"Unknown command: '{toks[0]}'");
+                            break;
+                        }
                 }
             }
 

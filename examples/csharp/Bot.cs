@@ -64,6 +64,8 @@ namespace MatrixRpcJsExample
 
                     var ev = session.ResponseStream.Current;
 
+                    Console.WriteLine($"<- {ev.Type}");
+
                     // Wait until we get the ready signal
                     if (!ready)
                     {
@@ -84,7 +86,7 @@ namespace MatrixRpcJsExample
                             if (ev.Sender == userId)
                                 continue;
 
-                            matrixClient.SendReadReceipt(new SendReadReceiptRequest { EventId = ev.EventId });
+                            _ = matrixClient.SendReadReceiptAsync(new SendReadReceiptRequest { EventId = ev.EventId });
                             Say($"{ev.MRoomMessage.Body}?! {junk[rand.Next(junk.Length)]}", ev.RoomId);
                             break;
                     }
@@ -103,6 +105,16 @@ namespace MatrixRpcJsExample
                 RoomId = to,
                 Body = something,
             });
+        }
+
+        public void Join(string roomId)
+        {
+            matrixClient.JoinRoom(new JoinRoomRequest { RoomId = roomId });
+        }
+
+        public void Leave(string roomId)
+        {
+            matrixClient.Leave(new LeaveRequest { RoomId = roomId });
         }
 
         public void ForceStop()

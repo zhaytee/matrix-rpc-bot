@@ -3,7 +3,7 @@ global.Olm = require("olm");
 import * as matrix from "matrix-js-sdk";
 
 import "source-map-support/register";
-import * as grpc from "grpc";
+import * as grpc from "@grpc/grpc-js";
 import * as protoLoader from "@grpc/proto-loader";
 import logger from "./logger";
 import Session, { Event } from "./session";
@@ -87,7 +87,11 @@ const matrixProto: any = grpc.loadPackageDefinition(packageDefinition).matrix;
 const server = new grpc.Server();
 server.addService(matrixProto.Matrix.service, grpcFuncs);
 const bindEndpoint = process.env["MATRIX_BIND_ADDRESS"] || "0.0.0.0:58558";
-server.bind(bindEndpoint, grpc.ServerCredentials.createInsecure());
-server.start();
-
-logger.info(`Serving Matrix RPC at ${bindEndpoint}`);
+server.bindAsync(bindEndpoint, grpc.ServerCredentials.createInsecure(), (err, port) => {
+    if (err) {
+        logger.error(err);
+        process.exit(1);
+    }
+    server.start();
+    logger.info(`Serving Matrix RPC at ${bindEndpoint}`);
+});
