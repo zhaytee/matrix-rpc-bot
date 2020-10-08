@@ -1,10 +1,10 @@
-FROM node:11.15-alpine as builder
+FROM node:12.16-alpine as builder
 WORKDIR /build
 COPY . .
-RUN yarn install
-RUN yarn build
+RUN npm i
+RUN npm build
 
-FROM node:11.15-alpine
+FROM node:12.16-alpine
 COPY --from=builder /build/node_modules/ ./node_modules
 COPY --from=builder /build/app/ ./app
 COPY --from=builder /build/package.json .
