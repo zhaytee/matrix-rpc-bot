@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "github.com/zhaytee/matrix-rpc-bot/proto/compiled/go;pb_matrix";
+
 package matrix;
 
 service Matrix {

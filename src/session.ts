@@ -39,7 +39,7 @@ export default class Session {
         accessToken: string,
         syncEventHandler: Function,
     ) {
-        const deviceDesc = `matrix-rpc-js-${sessionId}-${deviceId}`;
+        const deviceDesc = `matrix-rpc-bot-${sessionId}-${deviceId}`;
         let localStoragePath;
         if (process.platform === "win32") {
             localStoragePath = path.resolve(path.join(os.homedir(), "Local", deviceDesc));
@@ -126,7 +126,7 @@ export default class Session {
     handleSync(state, prevState, data) {
         logger.debug("Syncing", { state });
         if (state === "PREPARED" && prevState === null) {
-            this._client.setDeviceDetails(this._client.deviceId, "matrix-rpc-js");
+            this._client.setDeviceDetails(this._client.deviceId, "matrix-rpc-bot");
             this._client.setDisplayName(this._displayName);
             this._client.setPresence({
                 presence: this._initialPresence,

@@ -1,4 +1,4 @@
-# matrix-rpc-js
+# matrix-rpc-bot
 
 This is a frontend to the Matrix API to make it easier to write clients (bots, etc) with full end-to-end encryption (e2e) support. At time of writing, the Matrix SDK ecosystem (while fairly extensive and growing) is lacking in libraries that fully support e2e. The Javascript SDK is one of those that do, so this tool offers the functionality of the Javascript SDK via gRPC, opening the way for folks to join in on the fun with the language and platform of their choice.
 
@@ -22,9 +22,9 @@ By default, the daemon listens on `0.0.0.0:58558`. This can be customized by set
     
     > `$ npm run start`
 ### Docker
-Pre-built image from DockerHub: https://hub.docker.com/r/zhaytee/matrix-rpc-js
+Pre-built image from DockerHub: https://hub.docker.com/r/zhaytee/matrix-rpc-bot
 
-`$ docker run -d -p 58558:58558 zhaytee/matrix-rpc-js:1.0.2`
+`$ docker run -d -p 58558:58558 zhaytee/matrix-rpc-bot:1.0.2`
 
 ---
 
@@ -107,7 +107,7 @@ For details on the `content` payloads for each event (including common fields sh
 - `m.room.message`: A message was received in a room in which the client is present.
 - `m.presence`: A user's presence values have changed. (e.g. "online" -> "offline")
 - `m.typing`: The list of visible typing users has changed.
-- `x.ready`: An matrix-rpc-js custom extension event indicating that the client is ready. Until this event is fired, calls will be rejected with an error.
+- `x.ready`: An matrix-rpc-bot custom extension event indicating that the client is ready. Until this event is fired, calls will be rejected with an error.
 
 ---
 

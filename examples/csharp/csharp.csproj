@@ -20,4 +20,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Protobuf Include="../../proto/matrix.proto" />
+  </ItemGroup>
+
 </Project>

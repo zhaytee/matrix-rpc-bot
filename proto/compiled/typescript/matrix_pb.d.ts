@@ -1,5 +1,5 @@
 // package: matrix
-// file: proto/matrix.proto
+// file: matrix.proto
 
 import * as jspb from "google-protobuf";
 
