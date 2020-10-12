@@ -28,7 +28,7 @@ By default, the daemon listens on `0.0.0.0:58558`. This can be customized by set
 ### Docker
 Pre-built image from DockerHub: https://hub.docker.com/r/zhaytee/matrix-rpc-bot
 
-`$ docker run -d -p 58558:58558 zhaytee/matrix-rpc-bot:1.0.4`
+`$ docker run -d -p 58558:58558 zhaytee/matrix-rpc-bot:1.0.5`
 
 ---
 
