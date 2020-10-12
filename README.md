@@ -1,10 +1,14 @@
 # matrix-rpc-bot
 
-This is a frontend to the Matrix API to make it easier to write clients (bots, etc) with full end-to-end encryption (e2e) support. At time of writing, the Matrix SDK ecosystem (while fairly extensive and growing) is lacking in libraries that fully support e2e. The Javascript SDK is one of those that do, so this tool offers the functionality of the Javascript SDK via gRPC, opening the way for folks to join in on the fun with the language and platform of their choice.
+TL;DR: Easily create an end-to-end encrypted Matrix bot using your favorite language: Go, Rust, C#, Java, C++, Objective-C, Swift, Ruby, Python, JavaScript/TypeScript, Dart, PHP, and probably others (i.e. any language/platform supported by gRPC).
+
+---
+
+This is a frontend to the Matrix API to make it easier to write clients (bots, etc) with full end-to-end encryption (e2e) support. At time of writing, the Matrix SDK ecosystem (while fairly extensive and growing) is lacking in native libraries that fully support e2e. The Javascript SDK is one of those that do, so this tool offers the functionality of the Javascript SDK via gRPC, opening the way for folks to join in on the fun with the language and platform of their choice.
 
 Any language and platform supported by gRPC can be used with this tool.
 
-Ideally I'd develop a full SDK for my language of choice, but this seemed potentially more useful to the community due to its support for a fairly broad range of languages and platforms.
+Ideally I'd just develop a full SDK for my own language of choice, but this seemed potentially more useful to the community due to its support for a fairly broad range of languages and platforms.
 
 I hope it helps you make that rad bot you've been meaning to tinker with.
 
@@ -24,7 +28,7 @@ By default, the daemon listens on `0.0.0.0:58558`. This can be customized by set
 ### Docker
 Pre-built image from DockerHub: https://hub.docker.com/r/zhaytee/matrix-rpc-bot
 
-`$ docker run -d -p 58558:58558 zhaytee/matrix-rpc-bot:1.0.2`
+`$ docker run -d -p 58558:58558 zhaytee/matrix-rpc-bot:1.0.4`
 
 ---
 
@@ -53,7 +57,7 @@ StartSession(
     display_name: "Nobody",
     device_id: "WTFBBQ123",
     access_token: "<opaque>",
-    initial_presence: "online",
+    initial_presence: PRESENCE_ONLINE,
 )
 streaming response objects: {
     session_id: "some-session-id",

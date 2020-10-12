@@ -11,7 +11,7 @@ using Matrix;
 using Microsoft.Extensions.Configuration.Binder;
 using Newtonsoft.Json;
 
-namespace MatrixRpcJsExample
+namespace MatrixRpcBotExample
 {
     class Bot
     {
@@ -64,12 +64,12 @@ namespace MatrixRpcJsExample
 
                     var ev = session.ResponseStream.Current;
 
-                    Console.WriteLine($"<- {ev.Type}");
+                    Console.WriteLine($"<- {ev.ContentCase.ToString()}");
 
                     // Wait until we get the ready signal
                     if (!ready)
                     {
-                        if (ev.Type == "x.ready")
+                        if (ev.ContentCase == Matrix.SessionEvent.ContentOneofCase.XReady)
                         {
                             ready = true;
                             Console.WriteLine("Bot logic engaged! Waiting for events...");
@@ -79,15 +79,15 @@ namespace MatrixRpcJsExample
                         continue;
                     }
 
-                    switch (ev.Type)
+                    switch (ev.ContentCase)
                     {
-                        case "m.room.message":
+                        case Matrix.SessionEvent.ContentOneofCase.MRoomMessage:
                             // Ignore our own messages...
                             if (ev.Sender == userId)
-                                continue;
+                                break;
 
                             _ = matrixClient.SendReadReceiptAsync(new SendReadReceiptRequest { EventId = ev.EventId });
-                            Say($"{ev.MRoomMessage.Body}?! {junk[rand.Next(junk.Length)]}", ev.RoomId);
+                            Say($"You say \"{ev.MRoomMessage.Body}\", I say: {junk[rand.Next(junk.Length)]}", ev.RoomId);
                             break;
                     }
 

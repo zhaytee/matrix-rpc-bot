@@ -1,14 +1,16 @@
 #!/usr/bin/env sh
 
-# ts/js
+# js & ts
 OUTDIR=./compiled/typescript
-protoc \
+$(npm bin)/grpc_tools_node_protoc \
 	--plugin="protoc-gen-ts=`npm bin`/protoc-gen-ts" \
 	--plugin="protoc-gen-grpc=`npm bin`/grpc_tools_node_protoc_plugin" \
 	--js_out="import_style=commonjs,binary:${OUTDIR}" \
-	--ts_out="mode=grpc-js:${OUTDIR}" \
 	--grpc_out="grpc_js:${OUTDIR}" \
+	--ts_out="service=grpc-node,mode=grpc-js:${OUTDIR}" \
 	matrix.proto
+sed -i -- 's/import \* as grpc from "grpc";/import \* as grpc from "@grpc\/grpc-js";/g' compiled/typescript/matrix_grpc_pb.d.ts
+rm -f compiled/typescript/matrix_grpc_pb.d.ts--
 
 # golang
 OUTDIR=./compiled/go

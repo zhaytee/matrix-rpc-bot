@@ -3,11 +3,13 @@ import * as os from "os";
 import * as path from "path";
 import * as fs from "fs";
 import * as nodeLocalStorage from "node-localstorage";
-import * as matrix from "matrix-js-sdk";
-import uuidv4 from "uuid/v4";
+import { v4 as uuidv4 } from "uuid";
 import autoBind from "auto-bind";
 import LRU from "lru-cache";
-import LocalStorageCryptoStore from "matrix-js-sdk/lib/crypto/store/localStorage-crypto-store";
+import matrix from "matrix-js-sdk";
+import { LocalStorageCryptoStore } from "matrix-js-sdk/lib/crypto/store/localStorage-crypto-store";
+import { WebStorageSessionStore } from "matrix-js-sdk/lib/store/session/webstorage";
+import { MemoryStore } from "matrix-js-sdk/lib/store/memory";
 
 import logger from "./logger";
 
@@ -55,8 +57,8 @@ export default class Session {
 
         const result = matrix.createClient({
             baseUrl: homeserver,
-            sessionStore: new matrix.WebStorageSessionStore(localStorage),
-            store: new matrix.MatrixInMemoryStore({ localStorage }),
+            sessionStore: new WebStorageSessionStore(localStorage),
+            store: new MemoryStore({ localStorage }),
             deviceId: deviceId,
             userId: userId,
             accessToken: accessToken,
@@ -185,13 +187,11 @@ export default class Session {
     }
 
     async joinRoom(roomIdOrAlias) {
-        await this._client.joinRoom(roomIdOrAlias);
-        return {};
+        return this._client.joinRoom(roomIdOrAlias);
     }
 
     async leave(roomId) {
-        await this._client.leave(roomId);
-        return {};
+        return this._client.leave(roomId);
     }
 
     // javascript why do you hate us so
@@ -219,7 +219,6 @@ export default class Session {
             return {};
         }
         // Hopefully this function will eventually just accept an eventId
-        await this._client.sendReadReceipt(event);
-        return {};
+        return this._client.sendReadReceipt(event);
     }
 }

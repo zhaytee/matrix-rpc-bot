@@ -1,11 +1,13 @@
 using System;
-namespace MatrixRpcJsExample
+using Matrix;
+
+namespace MatrixRpcBotExample
 {
     interface IReadOnlyAppConfig : ICloneable
     {
         string Homeserver { get; }
         string DisplayName { get; }
-        string InitialPresence { get; }
+        Matrix.Presence InitialPresence { get; }
         string MatrixRpcJsEndpoint { get; }
     }
 
@@ -13,14 +15,14 @@ namespace MatrixRpcJsExample
     {
         public string Homeserver { get; set; }
         public string DisplayName { get; set; }
-        public string InitialPresence { get; set; }
+        public Matrix.Presence InitialPresence { get; set; }
         public string MatrixRpcJsEndpoint { get; set; }
 
         public static IReadOnlyAppConfig DefaultConfig { get; } = new AppConfig()
         {
             Homeserver = "https://matrix.org",
             DisplayName = "Some Bot",
-            InitialPresence = "online",
+            InitialPresence = Matrix.Presence.Online,
             MatrixRpcJsEndpoint = "127.0.0.1:58558",
         };
 

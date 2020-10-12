@@ -32,7 +32,7 @@ message StartSessionRequest {
     string display_name = 4;
     string device_id = 5;
     string access_token = 6;
-    string initial_presence = 7;
+    Presence initial_presence = 7;
 }
 
 message JoinRoomRequest {
@@ -62,13 +62,44 @@ message SendReadReceiptResponse {}
 
 //
 //
-// -------------------------------- EVENTS ------------------------------------
+// ---------------------------- SYSTEM OBJECTS --------------------------------
 //
 //
 
+enum Presence {
+    PRESENCE_UNSPECIFIED = 0;
+    PRESENCE_ONLINE = 1;
+    PRESENCE_OFFLINE = 2;
+    PRESENCE_UNAVAILABLE = 3;
+}
+
+enum Msgtype {
+    MSGTYPE_UNSPECIFIED = 0;
+    MSGTYPE_M_TEXT = 1;
+    MSGTYPE_M_EMOTE = 2;
+}
+
+message Receipt {
+    Kind kind = 1;
+    string event_id = 2;
+    string user_id = 3;
+    int64 timestamp = 4;
+    
+    enum Kind {
+        KIND_UNSPECIFIED = 0;
+        KIND_M_READ = 1;
+    }
+}
+
+//
+//
+// -------------------------------- EVENTS &c ---------------------------------
+//
+//
+
+
 message SessionEvent {
     string session_id = 1;
-    string type = 2;
     string sender = 3;
     string room_id = 4;
     string event_id = 5;
@@ -77,12 +108,13 @@ message SessionEvent {
         MTyping m_typing = 7;
         MPresence m_presence = 8;
         XReady x_ready = 9;
+        MReceipt m_receipt = 10;
     }
 }
 
 message MRoomMessage {
     string body = 1;
-    string msgtype = 2;
+    Msgtype msgtype = 2;
 }
 
 message MTyping {
@@ -91,8 +123,12 @@ message MTyping {
 
 message MPresence {
     int64 last_active_ago = 1;
-    string presence = 2;
+    Presence presence = 2;
     bool currently_active = 3;
 }
 
 message XReady {}
+
+message MReceipt {
+    repeated Receipt receipts = 1;
+}

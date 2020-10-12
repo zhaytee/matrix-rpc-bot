@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System;
 
-namespace MatrixRpcJsExample
+namespace MatrixRpcBotExample
 {
     class BotConsole
     {

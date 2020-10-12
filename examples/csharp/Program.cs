@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using Newtonsoft.Json;
 
-namespace MatrixRpcJsExample
+namespace MatrixRpcBotExample
 {
     class Program
     {
